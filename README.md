@@ -107,3 +107,8 @@ Join the Nx community:
 - [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [YouTube](https://www.youtube.com/@nxdevtools)
 - [Blog](https://nx.dev/blog)
+
+
+# PORTS USED #
+- ORDER_PORT : 8001
+- COMMUNICATION_PORT : 8002

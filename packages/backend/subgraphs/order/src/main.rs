@@ -1,0 +1,49 @@
+mod utils;
+mod order_db;
+mod graphql;
+mod repositories;
+use std::env;
+
+use axum::{Router, routing::get, serve};
+use backend_libs_utils::graphql_utils::graphiql_handler;
+#[cfg(debug_assertions)]
+use dotenvy::dotenv;
+use tokio::net::TcpListener;
+use tower_http::{
+    cors::{self, CorsLayer},
+};
+
+use crate::{
+    graphql::schema::schema::{AppSchema, build_schema}, 
+    utils::{graphql_handler, graphql_ws_handler}
+};
+
+
+#[tokio::main]
+async fn main() {
+    #[cfg(debug_assertions)]
+    dotenv().ok();
+
+    let port = env::var("ORDER_PORT").unwrap_or_else(|_| "8001".to_string());
+    // let folder_name = env::var("ORDER_STATIC_FOLDER").unwrap_or_else(|_| "static".to_string());
+
+    let cors = CorsLayer::new()
+        .allow_origin(cors::Any)
+        .allow_methods(cors::Any)
+        .allow_headers(cors::Any);
+
+    // Build schema and attach collection as Data
+    let schema: AppSchema = build_schema().await;
+
+    let app = Router::new()
+        .route("/graphql", get(graphiql_handler).post(graphql_handler))
+        .route("/subscriptions", get(graphql_ws_handler))
+        .layer(cors)
+        .with_state(schema.clone());
+
+    println!("Order playground: http://localhost:{}/graphql", port);
+    // run
+    let listener = TcpListener::bind(format!("localhost:{}", port)).await.unwrap();
+    serve(listener, app).await.unwrap();
+}
+

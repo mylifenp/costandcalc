@@ -1,0 +1,37 @@
+{
+  "name": "backend_libs_maps",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/backend/libs/maps/src",
+  "targets": {
+    "build": {
+      "executor": "@monodon/rust:check",
+      "outputs": ["{options.target-dir}"],
+      "options": {
+        "target-dir": "dist/target/backend_libs_maps"
+      }
+    },
+    "test": {
+      "cache": true,
+      "executor": "@monodon/rust:test",
+      "outputs": ["{options.target-dir}"],
+      "options": {
+        "target-dir": "dist/target/backend_libs_maps"
+      },
+      "configurations": {
+        "production": {
+          "release": true
+        }
+      }
+    },
+    "lint": {
+      "cache": true,
+      "executor": "@monodon/rust:lint",
+      "outputs": ["{options.target-dir}"],
+      "options": {
+        "target-dir": "dist/target/backend_libs_maps"
+      }
+    }
+  },
+  "tags": []
+}

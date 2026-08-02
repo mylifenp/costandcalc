@@ -2,21 +2,60 @@
   "name": "@org/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "order": "nx run order_api:run",
+    "communication": "nx run communication_api:run"
+  },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@monodon/rust": "^3.0.0",
+    "@nx/devkit": "23.1.0",
+    "@nx/jest": "23.1.0",
     "@nx/js": "23.1.0",
+    "@nx/next": "^23.1.0",
+    "@nx/playwright": "23.1.0",
+    "@playwright/test": "^1.37.0",
     "@swc-node/register": "1.11.1",
+    "@swc/cli": "~0.8.1",
     "@swc/core": "1.15.8",
     "@swc/helpers": "0.5.18",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.3.0",
+    "@types/jest": "~30.0.0",
     "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "babel-jest": "~30.3.0",
+    "jest": "~30.3.0",
+    "jest-environment-jsdom": "~30.3.0",
+    "jest-util": "~30.3.0",
     "nx": "23.1.0",
     "prettier": "^3.8.1",
+    "ts-jest": "^29.4.7",
+    "ts-node": "10.9.1",
     "tslib": "^2.3.0",
     "typescript": "~6.0.3"
   },
   "workspaces": [
-    "packages/*"
-  ]
+    "packages/*",
+    "packages/frontends/*"
+  ],
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "daisyui": "^5.7.14",
+    "next": "~16.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.3.3"
+  },
+  "allowScripts": {
+    "unrs-resolver@1.12.2": true,
+    "sharp@0.34.5": true,
+    "nx@23.1.0": true,
+    "less@4.5.1": true,
+    "@swc/core@1.15.8": true,
+    "@parcel/watcher@2.6.0": true,
+    "fsevents@2.3.3": true
+  },
+  "browserslist": "> 1%"
 }
