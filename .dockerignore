@@ -1,0 +1,39 @@
+# Nx workspace ignores
+.nx
+dist
+tmp
+
+
+node_modules
+dist
+packages/**/.next
+packages/**/node_modules
+libs/**/node_modules
+.nx
+.git
+.gitignore
+Dockerfile
+*.log
+tmp
+
+# rust
+**/target
+**/Cargo.lock
+
+# Next.js
+**/.next
+**/out
+
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+
+# Dockerfiles
+*.Dockerfile
+docker-compose.yml
+
+# OS junk
+.DS_Store
