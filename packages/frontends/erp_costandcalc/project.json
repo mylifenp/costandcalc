@@ -1,7 +1,7 @@
 {
   "name": "erp_costandcalc",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/frontends/erp_costandcalc",
+  "sourceRoot": "packages/frontends/erp_costandcalc/src",
   "projectType": "application",
   "tags": [],
   "// targets": "to see all targets run: nx show project erp_costandcalc --web",

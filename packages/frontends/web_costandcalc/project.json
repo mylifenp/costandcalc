@@ -1,7 +1,7 @@
 {
   "name": "web_costandcalc",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/frontends/web_costandcalc",
+  "sourceRoot": "packages/frontends/web_costandcalc/src",
   "projectType": "application",
   "tags": [],
   "// targets": "to see all targets run: nx show project web_costandcalc --web",
