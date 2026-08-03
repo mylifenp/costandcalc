@@ -2,19 +2,13 @@
 [workspace]
 resolver = '2'
 members = [
-	'packages/backend/libs/auth',
-	'packages/backend/libs/cache',
-	'packages/backend/libs/maps',
-	'packages/backend/libs/utils',
+	'packages/backend/shared',
 	'packages/backend/subgraphs/communication',
 	'packages/backend/subgraphs/order',
 ]
 
+[workspace.dependencies]
+shared = { path = 'packages/backend/shared' }
+
 [profile.release]
 lto = true
-
-
-[workspace.dependencies]
-backend_libs_auth = { path = 'packages/backend/libs/auth' }
-backend_libs_utils = { path = 'packages/backend/libs/utils' }
-backend_libs_cache = { path = 'packages/backend/libs/cache' }

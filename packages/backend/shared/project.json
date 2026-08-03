@@ -1,14 +1,14 @@
 {
-  "name": "backend_libs_cache",
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "name": "shared",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "packages/backend/libs/cache/src",
+  "sourceRoot": "packages/backend/shared/src",
   "targets": {
     "build": {
       "executor": "@monodon/rust:check",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/backend_libs_cache"
+        "target-dir": "dist/target/shared"
       }
     },
     "test": {
@@ -16,7 +16,7 @@
       "executor": "@monodon/rust:test",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/backend_libs_cache"
+        "target-dir": "dist/target/shared"
       },
       "configurations": {
         "production": {
@@ -29,7 +29,7 @@
       "executor": "@monodon/rust:lint",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/backend_libs_cache"
+        "target-dir": "dist/target/shared"
       }
     }
   },

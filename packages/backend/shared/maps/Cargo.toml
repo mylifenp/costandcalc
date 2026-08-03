@@ -1,5 +1,5 @@
 [package]
-name = "backend_libs_maps"
+name = "maps"
 version = "0.1.0"
 edition = "2021"
 
@@ -8,3 +8,5 @@ reqwest = { version = "0.13.4", features = ["json"] }
 serde = { version = "1.0", features = ["derive"] }
 urlencoding = "2.1"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+path = "src/lib.rs"

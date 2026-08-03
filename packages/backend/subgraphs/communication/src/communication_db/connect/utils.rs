@@ -1,4 +1,4 @@
-use backend_libs_utils::db_errors::DbError;
+use shared::utils::DbError;
 use mongodb::bson::oid::ObjectId;
 use mongodb::error::{ErrorKind, WriteError, WriteFailure};
 

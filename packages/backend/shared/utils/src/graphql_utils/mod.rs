@@ -1,6 +1,7 @@
 use async_graphql::{http::GraphiQLSource, Data, Result};
 use axum::response::{Html, IntoResponse};
-use backend_libs_auth::{
+
+use auth::{
     details::decode_token,
     tokens::{get_subscription_tokens, Tokens},
 };

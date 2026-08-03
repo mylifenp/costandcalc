@@ -1,5 +1,5 @@
 {
-  "name": "order_api",
+  "name": "backend_subgraphs_order",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "packages/backend/subgraphs/order/src",
@@ -9,7 +9,7 @@
       "executor": "@monodon/rust:build",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/order_api"
+        "target-dir": "dist/target/backend_subgraphs_order"
       },
       "configurations": {
         "production": {
@@ -22,7 +22,7 @@
       "executor": "@monodon/rust:test",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/order_api"
+        "target-dir": "dist/target/backend_subgraphs_order"
       },
       "configurations": {
         "production": {
@@ -35,14 +35,14 @@
       "executor": "@monodon/rust:lint",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/order_api"
+        "target-dir": "dist/target/backend_subgraphs_order"
       }
     },
     "run": {
       "executor": "@monodon/rust:run",
       "outputs": ["{options.target-dir}"],
       "options": {
-        "target-dir": "dist/target/order_api"
+        "target-dir": "dist/target/backend_subgraphs_order"
       },
       "configurations": {
         "production": {
