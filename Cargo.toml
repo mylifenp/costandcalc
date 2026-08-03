@@ -2,13 +2,11 @@
 [workspace]
 resolver = '2'
 members = [
-	'packages/backend/shared',
-	'packages/backend/subgraphs/communication',
-	'packages/backend/subgraphs/order',
+
 ]
 
 [workspace.dependencies]
-shared = { path = 'packages/backend/shared' }
+
 
 [profile.release]
 lto = true

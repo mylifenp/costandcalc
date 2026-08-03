@@ -37,8 +37,7 @@
     "typescript": "~6.0.3"
   },
   "workspaces": [
-    "packages/frontends/*",
-    "packages/backends/*"
+    "packages/frontends/*"
   ],
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.3",

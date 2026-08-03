@@ -82,17 +82,50 @@ jobs:
       - name: Determine affected projects
         id: affected
         run: |
-          # Get JSON array of affected projects
-          AFFECTED_JSON=$(npx nx print-affected \
-            --base=${{ github.event.pull_request.base.sha || github.event.before }} \
-            --head=${{ github.sha }} \
-            --select=projects)
+          set -euo pipefail
 
-          # Convert JSON array to space-separated list
-          AFFECTED=$(node -e "const a=JSON.parse(process.argv[1]||'[]'); console.log(a.join(' '))" "$AFFECTED_JSON")
+          # Determine base and head refs (works for PRs and pushes)
+          BASE_SHA="${{ github.event.pull_request.base.sha || github.event.before }}"
+          HEAD_SHA="${{ github.sha }}"
 
-          echo "Affected projects: $AFFECTED"
-          echo "affected=$AFFECTED" >> $GITHUB_OUTPUT
+          echo "Base: $BASE_SHA"
+          echo "Head: $HEAD_SHA"
+
+          # Try JSON output first (some Nx versions support --json)
+          AFFECTED_RAW=""
+          if AFFECTED_RAW=$(npx nx show projects --affected --base="$BASE_SHA" --head="$HEAD_SHA" --json 2>/dev/null); then
+            # If the output looks like JSON array, parse it
+            if echo "$AFFECTED_RAW" | jq -e 'type == "array"' >/dev/null 2>&1; then
+              AFFECTED=$(node -e "const a=JSON.parse(process.argv[1]||'[]'); console.log(a.join(' '))" "$AFFECTED_RAW")
+            else
+              # Fallback: treat as newline-separated list
+              AFFECTED=$(echo "$AFFECTED_RAW" | tr '\n' ' ' | xargs)
+            fi
+          else
+            # If --json not supported or command failed with --json, try plain output
+            AFFECTED_RAW=$(npx nx show projects --affected --base="$BASE_SHA" --head="$HEAD_SHA" 2>/dev/null || true)
+            # If output is empty, try nx graph to generate a JSON graph and extract projects
+            if [ -z "$AFFECTED_RAW" ]; then
+              # Generate graph JSON and extract affected projects (nx graph --affected --file=graph.json)
+              npx nx graph --affected --base="$BASE_SHA" --head="$HEAD_SHA" --file=nx-graph.json
+              if [ -f nx-graph.json ]; then
+                AFFECTED=$(jq -r '.nodes[].id' nx-graph.json | tr '\n' ' ' | xargs)
+              else
+                echo "No affected projects found or nx graph failed."
+                AFFECTED=""
+              fi
+            else
+              # Convert newline-separated output to space-separated
+              AFFECTED=$(echo "$AFFECTED_RAW" | tr '\n' ' ' | xargs)
+            fi
+          fi
+
+          echo "Affected projects raw:"
+          echo "$AFFECTED_RAW"
+          echo "Affected projects parsed: $AFFECTED"
+
+          # Expose as job output
+          echo "affected=$AFFECTED" >> "$GITHUB_OUTPUT"
 
       - name: Print affected projects
         run: |
@@ -101,7 +134,7 @@ jobs:
   build-web-costandcalc:
     runs-on: ubuntu-latest
     needs: main
-    if: contains(needs.main.outputs.affected, 'web_costandcalc')
+    if: contains(needs.main.outputs.affected, 'web_costandcalc') && github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -182,7 +215,7 @@ jobs:
   build-admin-costandcalc:
     runs-on: ubuntu-latest
     needs: main
-    if: contains(needs.main.outputs.affected, 'admin_costandcalc')
+    if: contains(needs.main.outputs.affected, 'admin_costandcalc') && github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -262,7 +295,7 @@ jobs:
   build-erp-costandcalc:
     runs-on: ubuntu-latest
     needs: main
-    if: contains(needs.main.outputs.affected, 'erp_costandcalc')
+    if: contains(needs.main.outputs.affected, 'erp_costandcalc') && github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
