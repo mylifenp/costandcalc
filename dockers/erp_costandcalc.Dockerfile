@@ -18,6 +18,7 @@ RUN npx nx build erp_costandcalc
 
 FROM base AS runner
 
+ENV SITE_URL=https://erp.costandcalc.com
 ENV NODE_ENV=production
 ENV STAGE=production
 ENV HOSTNAME=0.0.0.0
