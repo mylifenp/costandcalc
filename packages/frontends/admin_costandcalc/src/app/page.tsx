@@ -7,6 +7,7 @@ export default function Index() {
   return (
     <>
       <h1>Welcome</h1>
+      <h2>This is the main Admin page</h2>
       <span className="loading loading-bars loading-xs"></span>
       <span className="loading loading-bars loading-sm"></span>
       <span className="loading loading-bars loading-md"></span>

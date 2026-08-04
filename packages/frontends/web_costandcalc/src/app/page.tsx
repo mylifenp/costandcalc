@@ -7,6 +7,7 @@ export default function Index() {
   return (
     <>
       <h1>Welcome</h1>
+      <h2>This is the main Web page</h2>
       <span className="loading loading-spinner text-primary"></span>
       <span className="loading loading-spinner text-secondary"></span>
       <span className="loading loading-spinner text-accent"></span>
