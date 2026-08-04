@@ -7,6 +7,7 @@ export default function Index() {
   return (
     <>
       <h1>Welcome</h1>
+      <h2>This is the erp page</h2>
       <span className="loading loading-ball loading-xs"></span>
       <span className="loading loading-ball loading-sm"></span>
       <span className="loading loading-ball loading-md"></span>
