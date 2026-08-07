@@ -1,5 +1,5 @@
 {
-  "name": "@org/source",
+  "name": "@costandcalc/source",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -12,7 +12,6 @@
     "@iconify-json/lucide": "^1.2.121",
     "@iconify-json/ri": "^1.2.10",
     "@iconify/tailwind4": "^1.2.3",
-    "@monodon/rust": "^3.0.0",
     "@nx/devkit": "23.1.0",
     "@nx/jest": "23.1.0",
     "@nx/js": "23.1.0",
