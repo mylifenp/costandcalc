@@ -7,7 +7,7 @@ export const requireAuth = async () => {
   const session = await auth();
 
   if (!hasActiveSession(session)) {
-    redirect("/auth/signin?callbackUrl=/dashboards/ecommerce");
+    redirect("/auth/login?callbackUrl=/dashboards/ecommerce");
   }
 
   return session;
