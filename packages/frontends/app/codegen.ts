@@ -5,7 +5,7 @@ const config: CodegenConfig = {
   schema: process.env.GRAPHQL_API_URL || "http://localhost:9093/graphql",
   documents: ["graphql/**/*.{ts,tsx,graphql,gql}"],
   generates: {
-    ".graphql/generated/types.generated.ts": {
+    "graphql/generated/types.generated.ts": {
       plugins: ["typescript", 'typescript-operations', 'typescript-react-apollo'],
       config: {
         scalars: {
@@ -14,6 +14,7 @@ const config: CodegenConfig = {
           Upload: "File",
           JSON: "any",
         },
+        apolloReactHooksImportFrom: "@apollo/client/react",
       },
     },
     // "packages/frontends/app/graphql/generated/": {
