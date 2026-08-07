@@ -14,7 +14,7 @@ FROM base AS builder
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npx nx build web_costandcalc
+RUN npx nx run @costandcalc/app:build 
 
 FROM base AS runner
 
@@ -28,13 +28,13 @@ ENV PORT=3000
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/packages/frontends/web_costandcalc/public ./public
+COPY --from=builder /app/packages/frontends/app/public ./public
 
-COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/web_costandcalc/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/web_costandcalc/.next/standalone/packages/frontends/web_costandcalc/server.js ./server.js
-COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/web_costandcalc/.next/standalone/packages/frontends/web_costandcalc/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/app/.next/standalone/packages/frontends/app/server.js ./server.js
+COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/app/.next/standalone/packages/frontends/app/.next ./.next
 
-COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/web_costandcalc/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/packages/frontends/app/.next/static ./.next/static
 
 USER nextjs
 
