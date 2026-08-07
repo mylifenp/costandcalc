@@ -71,6 +71,7 @@ async function refreshTokens(token: JWT): Promise<JWT> {
 const nextAuth = NextAuth({
   debug: !!process.env.AUTH_DEBUG,
   theme: { logo: 'https://authjs.dev/img/logo-sm.png' },
+  trustHost: !!process.env.AUTH_TRUST_HOST,
   providers: [
     Keycloak({
       id: 'keycloak',
