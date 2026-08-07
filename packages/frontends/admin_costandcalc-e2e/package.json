@@ -1,5 +1,10 @@
 {
   "name": "admin_costandcalc-e2e",
   "version": "0.0.1",
-  "private": true
+  "private": true,
+  "nx": {
+    "implicitDependencies": [
+      "admin_costandcalc"
+    ]
+  }
 }
