@@ -53,7 +53,7 @@
     "@apollo/client": "^4.2.10",
     "@apollo/client-integration-nextjs": "^0.14.5",
     "@auth/unstorage-adapter": "^2.11.3",
-    "@tanstack/react-table": "^9.0.0",
+    "@tanstack/react-table": "^8.21.3",
     "@vercel/kv": "^3.0.0",
     "apexcharts": "^6.7.0",
     "choices.js": "^11.2.3",

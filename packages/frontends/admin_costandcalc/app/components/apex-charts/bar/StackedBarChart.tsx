@@ -80,7 +80,7 @@ export const StackedBarChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="bar"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

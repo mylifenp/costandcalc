@@ -148,19 +148,19 @@ export const SyncingLineChart = () => {
         <div>
             <ApexCharts
                 options={orderChartOptions}
-                type={orderChartOptions.chart?.type}
+                type="line"
                 height={orderChartOptions.chart?.height}
                 series={orderChartOptions.series}
             />
             <ApexCharts
                 options={revenueChartOptions}
-                type={revenueChartOptions.chart?.type}
+                type="line"
                 height={revenueChartOptions.chart?.height}
                 series={revenueChartOptions.series}
             />
             <ApexCharts
                 options={averageChartOptions}
-                type={averageChartOptions.chart?.type}
+                type="line"
                 height={averageChartOptions.chart?.height}
                 series={averageChartOptions.series}
             />

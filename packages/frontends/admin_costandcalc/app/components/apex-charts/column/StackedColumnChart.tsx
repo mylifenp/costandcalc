@@ -87,7 +87,7 @@ export const StackedColumnChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="bar"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

@@ -82,7 +82,7 @@ export const GradientDonutChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="donut"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

@@ -138,7 +138,7 @@ export const ChartsStatsDemo = () => {
                                         options={chartOptions}
                                         height={chartOptions.chart?.height}
                                         width={chartOptions.chart?.width}
-                                        type={chartOptions.chart?.type}
+                                        type="line"
                                         series={chartOptions.series}></ApexCharts>
                                 </div>
                             </div>

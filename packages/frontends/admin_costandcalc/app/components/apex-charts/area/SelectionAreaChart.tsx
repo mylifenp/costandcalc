@@ -738,13 +738,13 @@ export const SelectionAreaChart = () => {
         <div>
             <ApexCharts
                 options={resultChartOptions}
-                type={resultChartOptions.chart?.type}
+                type="area"
                 height={resultChartOptions.chart?.height}
                 series={resultChartOptions.series}
             />
             <ApexCharts
                 options={targetChartOptions}
-                type={targetChartOptions.chart?.type}
+                type="area"
                 height={targetChartOptions.chart?.height}
                 series={targetChartOptions.series}
             />
