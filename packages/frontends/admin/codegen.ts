@@ -15,19 +15,9 @@ const config: CodegenConfig = {
           JSON: "any",
         },
         withHooks: false,
+        apolloReactHooksImportFrom: "@apollo/client/react",
       },
     },
-    // "packages/frontends/admin/graphql/generated/": {
-    //   preset: "near-operation-file",
-    //   presetConfig: {
-    //     extension: ".generated.ts",
-    //     baseTypesPath: "types.generated.ts",
-    //   },
-    //   plugins: ["typescript-operations", "typed-document-node"],
-    // },
-    // "./graphql.schema.json": {
-    //   plugins: ["introspection"],
-    // },
   },
 };
 

@@ -2,6 +2,9 @@
   "name": "@costandcalc/admin",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.ts"
+  },
   "dependencies": {
     "next": "~16.1.6",
     "react": "^19.0.0",
