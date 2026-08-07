@@ -5,9 +5,9 @@ import { JWT } from 'next-auth/jwt';
 import { getRole } from './role';
 import { ROLE } from '@/utils/enums/role';
 
-const { 
+const {
   AUTH_DEBUG,
-  AUTH_TRUST_HOST, 
+  AUTH_TRUST_HOST,
   KEYCLOAK_CLIENT_ID,
   KEYCLOAK_CLIENT_SECRET,
   KEYCLOAK_ISSUER,
@@ -16,8 +16,8 @@ const {
 } = process.env;
 
 const configEnvs = {
-  AUTH_DEBUG: typeof AUTH_DEBUG === 'undefined' ? false : Boolean(AUTH_DEBUG),
-  AUTH_TRUST_HOST: typeof AUTH_TRUST_HOST === 'undefined' ? false : Boolean(AUTH_TRUST_HOST),
+  AUTH_DEBUG: AUTH_DEBUG === 'true',
+  AUTH_TRUST_HOST: AUTH_TRUST_HOST === 'true',
   KEYCLOAK_CLIENT_ID: typeof KEYCLOAK_CLIENT_ID === 'undefined' ? '' : KEYCLOAK_CLIENT_ID,
   KEYCLOAK_CLIENT_SECRET: typeof KEYCLOAK_CLIENT_SECRET === 'undefined' ? '' : KEYCLOAK_CLIENT_SECRET,
   KEYCLOAK_ISSUER: typeof KEYCLOAK_ISSUER === 'undefined' ? '' : KEYCLOAK_ISSUER,
@@ -41,7 +41,7 @@ async function refreshTokens(token: JWT): Promise<JWT> {
   }
 
   try {
-    const url = `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
+    const url = `${configEnvs.KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -51,9 +51,9 @@ async function refreshTokens(token: JWT): Promise<JWT> {
       body: new URLSearchParams({
         grant_type: "refresh_token",
         refresh_token: (token.refreshToken as string) || "",
-        client_id: process.env.KEYCLOAK_CLIENT_ID!,
-        client_secret: process.env.KEYCLOAK_CLIENT_SECRET!,
-        scope: process.env.KEYCLOAK_SCOPE || "openid email roles organization",
+        client_id: configEnvs.KEYCLOAK_CLIENT_ID!,
+        client_secret: configEnvs.KEYCLOAK_CLIENT_SECRET!,
+        scope: configEnvs.KEYCLOAK_SCOPE || "openid email roles organization",
       }),
     });
     const refreshedTokens = await response.json();

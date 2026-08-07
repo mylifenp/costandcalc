@@ -5,9 +5,9 @@ import { JWT } from 'next-auth/jwt';
 import { getRole } from './role';
 import { ROLE } from '@/utils/enums/role';
 
-const { 
+const {
   AUTH_DEBUG,
-  AUTH_TRUST_HOST, 
+  AUTH_TRUST_HOST,
   KEYCLOAK_CLIENT_ID,
   KEYCLOAK_CLIENT_SECRET,
   KEYCLOAK_ISSUER,
@@ -40,7 +40,7 @@ async function refreshTokens(token: JWT): Promise<JWT> {
   }
 
   try {
-    const url = `${process.env.KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
+    const url = `${configEnvs.KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
 
     const response = await fetch(url, {
       method: "POST",
@@ -50,9 +50,9 @@ async function refreshTokens(token: JWT): Promise<JWT> {
       body: new URLSearchParams({
         grant_type: "refresh_token",
         refresh_token: (token.refreshToken as string) || "",
-        client_id: process.env.KEYCLOAK_CLIENT_ID!,
-        client_secret: process.env.KEYCLOAK_CLIENT_SECRET!,
-        scope: process.env.KEYCLOAK_SCOPE || "openid email roles organization",
+        client_id: configEnvs.KEYCLOAK_CLIENT_ID!,
+        client_secret: configEnvs.KEYCLOAK_CLIENT_SECRET!,
+        scope: configEnvs.KEYCLOAK_SCOPE || "openid email roles organization",
       }),
     });
     const refreshedTokens = await response.json();
@@ -175,7 +175,7 @@ const nextAuth = NextAuth({
   },
   experimental: { enableWebAuthn: true },
   secret: configEnvs.APP_AUTH_SECRET,
-  
+
 });
 
 type AuthMiddleware = typeof nextAuth["auth"];
