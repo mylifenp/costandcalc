@@ -17,7 +17,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@org/source"],
+    "customConditions": ["@costandcalc/source"],
     "noUncheckedSideEffectImports": false,
     "types": ["*"]
   }

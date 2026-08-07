@@ -27,7 +27,6 @@
         }
       }
     },
-    "@monodon/rust",
     {
       "plugin": "@nx/next/plugin",
       "options": {
