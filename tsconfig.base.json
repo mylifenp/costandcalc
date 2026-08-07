@@ -8,6 +8,7 @@
     "lib": ["es2022"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
+    "ignoreDeprecations": "6.0",
     "noEmitOnError": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": true,
