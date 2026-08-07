@@ -12,11 +12,9 @@ permissions:
 
 env:
   DOCKER_IMAGE_ADMIN_COSTANDCALC: mylifenp/admin_costandcalc
-  DOCKER_IMAGE_ERP_COSTANDCALC: mylifenp/erp_costandcalc
   DOCKER_IMAGE_WEB_COSTANDCALC: mylifenp/web_costandcalc
   DOCKERHUB_NAMESPACE: mylifenp
   DOCKERHUB_REPOSITORY_ADMIN_COSTANDCALC: admin_costandcalc
-  DOCKERHUB_REPOSITORY_ERP_COSTANDCALC: erp_costandcalc
   DOCKERHUB_REPOSITORY_WEB_COSTANDCALC: web_costandcalc
 
 jobs:
@@ -292,93 +290,19 @@ jobs:
               "https://hub.docker.com/v2/namespaces/${DOCKERHUB_NAMESPACE}/repositories/${DOCKERHUB_REPOSITORY}/tags/${tag}/"
           done <<< "${tags_to_delete}"
 
-  build-erp-costandcalc:
-    runs-on: ubuntu-latest
-    needs: main
-    if: contains(needs.main.outputs.affected, 'erp_costandcalc') && github.event_name == 'push' && github.ref == 'refs/heads/main'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Compute image version tag
-        id: version-erp
-        run: |
-          base_tag=$(git describe --tags --abbrev=0 --match 'v[0-9]*' 2>/dev/null || echo 'v0.1.0')
-          if git describe --tags --exact-match HEAD >/dev/null 2>&1; then
-            version_tag="$base_tag"
-          else
-            version_tag="${base_tag}-build.${GITHUB_RUN_NUMBER}.${GITHUB_SHA::7}"
-          fi
-          echo "tag=${version_tag}" >> "$GITHUB_OUTPUT"
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Build and push ERP Costandcalc image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: dockers/erp_costandcalc.Dockerfile
-          push: true
-          tags: |
-            ${{ env.DOCKER_IMAGE_ERP_COSTANDCALC }}:latest
-            ${{ env.DOCKER_IMAGE_ERP_COSTANDCALC }}:${{ steps.version-erp.outputs.tag }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-      - name: Prune old Docker Hub image tags (erp)
-        env:
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKERHUB_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKERHUB_NAMESPACE: ${{ env.DOCKERHUB_NAMESPACE }}
-          DOCKERHUB_REPOSITORY: ${{ env.DOCKERHUB_REPOSITORY_ERP_COSTANDCALC }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y jq
-
-          token=$(curl -fsSL \
-            -H "Content-Type: application/json" \
-            -X POST \
-            -d "{\"username\":\"${DOCKERHUB_USERNAME}\",\"password\":\"${DOCKERHUB_PASSWORD}\"}" \
-            https://hub.docker.com/v2/users/login/ | jq -r '.token')
-
-          tags_to_delete=$(curl -fsSL \
-            -H "Authorization: Bearer ${token}" \
-            "https://hub.docker.com/v2/namespaces/${DOCKERHUB_NAMESPACE}/repositories/${DOCKERHUB_REPOSITORY}/tags?page_size=100" | \
-            jq -r '.results
-              | map(select(.name != "latest"))
-              | sort_by(.last_updated)
-              | reverse
-              | .[5:][]?.name')
-
-          if [ -z "${tags_to_delete}" ]; then
-            echo "No old versioned tags to delete"
-            exit 0
-          fi
-
-          while IFS= read -r tag; do
-            [ -z "${tag}" ] && continue
-            echo "Deleting old Docker Hub tag: ${tag}"
-            curl -fsSL \
-              -X DELETE \
-              -H "Authorization: Bearer ${token}" \
-              "https://hub.docker.com/v2/namespaces/${DOCKERHUB_NAMESPACE}/repositories/${DOCKERHUB_REPOSITORY}/tags/${tag}/"
-          done <<< "${tags_to_delete}"
-
   deploy-on-vps:
       needs:
+        - main
         - build-web-costandcalc
         - build-admin-costandcalc
-        - build-erp-costandcalc
       runs-on: ubuntu-latest
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      if: |
+        always() &&
+          github.event_name == 'push' &&
+          github.ref == 'refs/heads/main' &&
+          needs.main.result == 'success' &&
+          contains(fromJSON('["success","skipped"]'), needs.build-web-costandcalc.result) &&
+          contains(fromJSON('["success","skipped"]'), needs.build-admin-costandcalc.result)
       steps:
         - name: Checkout code
           uses: actions/checkout@v6

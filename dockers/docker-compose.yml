@@ -1,17 +1,4 @@
 services:
-  erp_costandcalc:
-    image: mylifenp/erp_costandcalc:latest
-    container_name: erp_costandcalc
-    ports:
-      - '9080:3000'
-    restart: always
-    env_file:
-      - ./.env
-    environment:
-      NODE_ENV: production
-      STAGE: production
-      HOSTNAME: 0.0.0.0
-      PORT: 3000
   web_costandcalc:
     image: mylifenp/web_costandcalc:latest
     container_name: web_costandcalc

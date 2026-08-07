@@ -47,7 +47,8 @@
     "typescript": "~6.0.3"
   },
   "workspaces": [
-    "packages/frontends/*"
+    "packages/frontends/*",
+    "frontends/*"
   ],
   "dependencies": {
     "@apollo/client": "^4.2.10",

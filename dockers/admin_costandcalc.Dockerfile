@@ -19,6 +19,7 @@ RUN npx nx run @org/admin_costandcalc:build
 FROM base AS runner
 
 ENV SITE_URL=https://admin.costandcalc.com
+ENV AUTH_URL=https://admin.costandcalc.com
 ENV NODE_ENV=production
 ENV STAGE=production
 ENV HOSTNAME=0.0.0.0
