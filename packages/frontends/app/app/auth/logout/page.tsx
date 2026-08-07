@@ -19,7 +19,7 @@ const LogoutPage = () => {
                 </Link>
                 <ThemeToggle className="btn btn-circle btn-outline border-base-300" />
             </div>
-            <h1 className="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">Login</h1>
+            <h1 className="mt-8 text-center text-xl font-semibold md:mt-12 lg:mt-24">Press Login</h1>
             <h3 className="text-base-content/70 mt-2 text-center text-sm">
                 Seamless Access, Secure Connection: Your Gateway to a Personalized Experience.
             </h3>
