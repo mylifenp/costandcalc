@@ -1,6 +1,6 @@
 services:
   erp_costandcalc:
-    image: mylifenp/brindawan_erp:latest
+    image: mylifenp/erp_costandcalc:latest
     container_name: erp_costandcalc
     ports:
       - '9080:3000'
@@ -13,7 +13,7 @@ services:
       HOSTNAME: 0.0.0.0
       PORT: 3000
   web_costandcalc:
-    image: mylifenp/brindawan_erp:latest
+    image: mylifenp/web_costandcalc:latest
     container_name: web_costandcalc
     ports:
       - '9081:3000'
@@ -26,7 +26,7 @@ services:
       HOSTNAME: 0.0.0.0
       PORT: 3000
   admin_costandcalc:
-    image: mylifenp/brindawan_erp:latest
+    image: mylifenp/admin_costandcalc:latest
     container_name: admin_costandcalc
     ports:
       - '9082:3000'

@@ -19,22 +19,28 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     },
     "types": ["jest", "node"],
     "outDir": "dist",
-    "rootDir": "src",
-    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo"
+    "rootDir": "."
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.jsx",
+    "app/**/*.ts",
+    "app/**/*.tsx",
+    "app/**/*.js",
+    "app/**/*.jsx",
     "../../../packages/frontends/admin_costandcalc/.next/types/**/*.ts",
     "../../../dist/packages/frontends/admin_costandcalc/.next/types/**/*.ts",
     "index.d.ts",
-    "next-env.d.ts"
+    "next-env.d.ts",
+    "components",
+    "auth-lib",
+    "contexts",
+    "graphql",
+    "hooks",
+    "styles",
+    "utils"
   ],
   "exclude": [
     "out-tsc",
@@ -42,6 +48,8 @@
     "node_modules",
     "jest.config.ts",
     "jest.config.cts",
+    "app/**/*.spec.ts",
+    "app/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
     ".next"
