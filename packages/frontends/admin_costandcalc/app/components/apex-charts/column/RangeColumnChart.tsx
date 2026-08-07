@@ -72,7 +72,9 @@ const chartOptions: ApexOptions = {
     dataLabels: {
         enabled: true,
         formatter: (val, opts) => {
-            const dataValue = opts.w.config.series[opts.seriesIndex].data[opts.dataPointIndex].y;
+            if (!opts) return String(val);
+            const dataValue = (opts.seriesIndex === 0 ? yAxisUsers : yAxisPremiumSubscriber)[opts.dataPointIndex];
+            if (!dataValue) return String(val);
             return dataValue[1] - dataValue[0] + "%";
         },
     },
@@ -98,7 +100,7 @@ export const RangeColumnChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="rangeBar"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

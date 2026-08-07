@@ -207,7 +207,7 @@ export const IrregularTimeSeriesAreaChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="area"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

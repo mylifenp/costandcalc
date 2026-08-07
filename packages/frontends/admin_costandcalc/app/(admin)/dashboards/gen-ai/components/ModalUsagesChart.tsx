@@ -94,7 +94,7 @@ export const ModalUsagesChart = () => {
         <ApexCharts
             options={chartOptions}
             height={chartOptions.chart?.height}
-            type={chartOptions.chart?.type}
+            type="line"
             series={chartOptions.series}></ApexCharts>
     );
 };

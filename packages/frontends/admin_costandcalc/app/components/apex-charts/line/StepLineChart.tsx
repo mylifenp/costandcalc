@@ -56,7 +56,7 @@ export const StepLineChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="line"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

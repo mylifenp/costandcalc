@@ -44,7 +44,7 @@ export const SimplePieChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="pie"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

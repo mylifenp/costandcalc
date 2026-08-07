@@ -85,6 +85,9 @@ const nextAuth = NextAuth({
     }),
   ],
   basePath: "/auth",
+  pages: {
+    error: "/auth/error",
+  },
   session: { strategy: "jwt" },
   callbacks: {
     authorized({ request, auth }) {
@@ -151,7 +154,7 @@ const nextAuth = NextAuth({
     },
   },
   experimental: { enableWebAuthn: true },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.ADMIN_AUTH_SECRET ?? process.env.NEXTADMIN_AUTH_SECRET,
 });
 
 type AuthMiddleware = typeof nextAuth["auth"];

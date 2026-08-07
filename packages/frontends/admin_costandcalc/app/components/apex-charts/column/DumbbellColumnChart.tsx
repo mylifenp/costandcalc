@@ -121,7 +121,7 @@ export const DumbbellColumnChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="rangeBar"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />

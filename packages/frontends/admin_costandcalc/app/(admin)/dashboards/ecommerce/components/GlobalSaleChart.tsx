@@ -66,6 +66,7 @@ const chartOptions: ApexOptions = {
             colors: ["#fff"],
         },
         formatter: function (val, opt) {
+            if (!opt) return String(val);
             return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
         },
         offsetX: -10,
@@ -114,7 +115,7 @@ export const GlobalSaleChart = () => {
         <ApexCharts
             options={chartOptions}
             height={chartOptions.chart?.height}
-            type={chartOptions.chart?.type}
+            type="bar"
             series={chartOptions.series}
         />
     );

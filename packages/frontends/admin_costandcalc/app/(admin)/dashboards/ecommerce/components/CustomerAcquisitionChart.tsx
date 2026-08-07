@@ -26,7 +26,7 @@ const chartOptions: ApexOptions = {
     },
     forecastDataPoints: {
         count: 2,
-        dashArray: [6, 4],
+        dashArray: 6,
     },
     grid: {
         show: false,

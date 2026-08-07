@@ -61,7 +61,7 @@ export const ResourceUtilizationChart = () => {
             <ApexCharts
                 options={chartOptions}
                 height={chartOptions.chart?.height}
-                type={chartOptions.chart?.type}
+                type="treemap"
                 series={chartOptions.series}></ApexCharts>
         </div>
     );

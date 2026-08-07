@@ -120,7 +120,7 @@ export const NegativeValuesColumnChart = () => {
     return (
         <ApexCharts
             options={chartOptions}
-            type={chartOptions.chart?.type}
+            type="bar"
             height={chartOptions.chart?.height}
             series={chartOptions.series}
         />
