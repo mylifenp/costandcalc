@@ -14,6 +14,7 @@ const config: CodegenConfig = {
           Upload: "File",
           JSON: "any",
         },
+        withHooks: false,
         apolloReactHooksImportFrom: "@apollo/client/react",
       },
     },
