@@ -11,9 +11,9 @@ permissions:
   contents: read
 
 env:
+  DOCKERHUB_NAMESPACE: mylifenp
   DOCKER_IMAGE_ADMIN_COSTANDCALC: mylifenp/admin_costandcalc
   DOCKER_IMAGE_WEB_COSTANDCALC: mylifenp/web_costandcalc
-  DOCKERHUB_NAMESPACE: mylifenp
   DOCKERHUB_REPOSITORY_ADMIN_COSTANDCALC: admin_costandcalc
   DOCKERHUB_REPOSITORY_WEB_COSTANDCALC: web_costandcalc
 
@@ -132,7 +132,7 @@ jobs:
   build-web-costandcalc:
     runs-on: ubuntu-latest
     needs: main
-    if: contains(needs.main.outputs.affected, 'web_costandcalc') && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: contains(needs.main.outputs.affected, '@costandcalc/app') && github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -163,7 +163,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: dockers/web_costandcalc.Dockerfile
+          file: dockers/app_costandcalc.Dockerfile
           push: true
           tags: |
             ${{ env.DOCKER_IMAGE_WEB_COSTANDCALC }}:latest
@@ -213,7 +213,7 @@ jobs:
   build-admin-costandcalc:
     runs-on: ubuntu-latest
     needs: main
-    if: contains(needs.main.outputs.affected, 'admin_costandcalc') && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: contains(needs.main.outputs.affected, '@costandcalc/admin') && github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
