@@ -4,22 +4,16 @@
   "files": [],
   "references": [
     {
-      "path": "./packages/frontends/web_costandcalc-e2e"
+      "path": "./packages/frontends/admin-e2e"
     },
     {
-      "path": "./packages/frontends/web_costandcalc"
+      "path": "./packages/frontends/admin"
     },
     {
-      "path": "./packages/frontends/erp_costandcalc-e2e"
+      "path": "./packages/frontends/app-e2e"
     },
     {
-      "path": "./packages/frontends/erp_costandcalc"
-    },
-    {
-      "path": "./packages/frontends/admin_costandcalc-e2e"
-    },
-    {
-      "path": "./packages/frontends/admin_costandcalc"
+      "path": "./packages/frontends/app"
     }
   ],
   "compilerOptions": {}
