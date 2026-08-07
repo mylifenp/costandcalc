@@ -19,6 +19,6 @@ describe('Page', () => {
 
     await Page();
 
-    expect(redirect).toHaveBeenCalledWith('/auth/signin?callbackUrl=/dashboards/ecommerce');
+    expect(redirect).toHaveBeenCalledWith('/auth/login?callbackUrl=/dashboards/ecommerce');
   });
 });

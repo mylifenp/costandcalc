@@ -16,5 +16,5 @@ export default async function Page() {
     redirect("/dashboards/ecommerce");
   }
   
-  redirect('/auth/signin?callbackUrl=/dashboards/ecommerce');
+  redirect('/auth/login?callbackUrl=/dashboards/ecommerce');
 }

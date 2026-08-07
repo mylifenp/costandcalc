@@ -50,7 +50,7 @@ export default function AuthError() {
 				<h1 className="mt-2 text-2xl font-semibold">{error.title}</h1>
 				<p className="text-base-content/60 mt-3 text-sm leading-6">{error.description}</p>
 				<p className="text-base-content/40 mt-4 font-mono text-xs">Error code: {errorCode}</p>
-				<Link className="btn btn-primary mt-6 w-full" href="/auth/signin">
+				<Link className="btn btn-primary mt-6 w-full" href="/auth/login?callbackUrl=/dashboards/ecommerce">
 					Try again
 				</Link>
 				<Link className="btn btn-ghost mt-2 w-full" href="/">
