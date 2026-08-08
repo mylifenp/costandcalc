@@ -36,7 +36,7 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
 
     const loggingFetch = async (input: any, init?: any) => {
       // eslint-disable-next-line no-console
-      console.debug('[ApolloFetchDebug][request]', { url: String(input), initHeaders: init?.headers });
+      console.debug('[ApolloFetchDebug][request]', { url: String(input), method: init?.method ?? 'POST', initHeaders: init?.headers });
       const res = await fetch(input, init);
       const contentType = res.headers?.get?.('content-type') ?? '';
       if (!contentType.includes('application/json')) {
@@ -56,6 +56,8 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
     const bearerToken = tokens['Access-Token'] || tokens['ID-Token'] || undefined;
     const outgoingHeaders = {
       ...requestHeaders,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
       ...(bearerToken ? { Authorization: `Bearer ${bearerToken}` } : {}),
       ...tokens,
     };
