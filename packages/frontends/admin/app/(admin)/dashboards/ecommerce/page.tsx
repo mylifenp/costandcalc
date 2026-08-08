@@ -15,8 +15,17 @@ export const metadata: Metadata = {
   title: 'Dashboard - Ecommerce',
 };
 
+export const dynamic = 'force-dynamic';
+
 const EcommerceDashboardPage = async () => {
-  const { data } = await query({ query: HealthsDocument });
+  let data;
+
+  try {
+    ({ data } = await query({ query: HealthsDocument }));
+  } catch (error) {
+    console.error('Health check request failed', error);
+  }
+
   return (
     <>
       <PageTitle title="Business Overview" items={[{ label: 'Dashboards' }, { label: 'Ecommerce', active: true }]} />
