@@ -34,11 +34,29 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
       requestHeaders = {};
     }
 
+    const loggingFetch = async (input: any, init?: any) => {
+      const res = await fetch(input, init);
+      const contentType = res.headers?.get?.('content-type') ?? '';
+      if (!contentType.includes('application/json')) {
+        const text = await res.clone().text();
+        // eslint-disable-next-line no-console
+        console.error('[ApolloFetchDebug] Non-JSON response from GraphQL server', {
+          url: String(input),
+          status: res.status,
+          statusText: res.statusText,
+          contentType,
+          bodyPreview: text.slice(0, 1000),
+        });
+      }
+      return res;
+    };
+
     return new ApolloClient({
       cache: new InMemoryCache(),
       link: new HttpLink({
         uri: graphqlApiUrl,
         credentials: 'include',
+        fetch: loggingFetch,
         headers: {
           ...requestHeaders,
           ...tokens,
