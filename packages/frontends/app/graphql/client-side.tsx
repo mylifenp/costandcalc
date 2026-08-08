@@ -16,12 +16,13 @@ export function ApolloWrapper({ children }: { children: ReactNode }) {
 
   const client = useMemo(() => {
     const authLink = new SetContextLink((prevContext) => {
-      const tokenHeaders: Record<string, string> = session?.accessToken
-        ? {
-            'Access-Token': session.accessToken,
-            'ID-Token': session.idToken ?? '',
-          }
-        : {};
+      const tokenHeaders: Record<string, string> = {};
+      const authToken = session?.accessToken ?? session?.idToken;
+      if (authToken) tokenHeaders['Authorization'] = `Bearer ${authToken}`;
+      if (session?.accessToken) tokenHeaders['Access-Token'] = session.accessToken;
+      if (session?.idToken) tokenHeaders['ID-Token'] = session.idToken;
+      // eslint-disable-next-line no-console
+      console.debug('[ApolloClient] setting auth headers', tokenHeaders);
 
       return {
         headers: {

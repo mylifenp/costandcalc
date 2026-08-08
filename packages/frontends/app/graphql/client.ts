@@ -37,6 +37,8 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
     }
 
     const loggingFetch = async (input: any, init?: any) => {
+      // eslint-disable-next-line no-console
+      console.debug('[ApolloFetchDebug][request]', { url: String(input), initHeaders: init?.headers });
       const res = await fetch(input, init);
       const contentType = res.headers?.get?.('content-type') ?? '';
       if (!contentType.includes('application/json')) {
@@ -53,16 +55,20 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
       return res;
     };
 
+    const bearerToken = tokens['Access-Token'] || tokens['ID-Token'] || undefined;
+    const outgoingHeaders = {
+      ...requestHeaders,
+      ...(bearerToken ? { Authorization: `Bearer ${bearerToken}` } : {}),
+      ...tokens,
+    };
+
     return new ApolloClient({
       cache: new InMemoryCache(),
       link: new HttpLink({
         uri: graphqlApiUrl,
         credentials: 'include',
         fetch: loggingFetch,
-        headers: {
-          ...requestHeaders,
-          ...tokens,
-        },
+        headers: outgoingHeaders,
       }),
     });
   },
