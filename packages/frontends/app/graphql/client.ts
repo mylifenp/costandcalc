@@ -36,25 +36,6 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
       requestHeaders = {};
     }
 
-    const loggingFetch = async (input: any, init?: any) => {
-      // eslint-disable-next-line no-console
-      console.debug('[ApolloFetchDebug][request]', { url: String(input), method: init?.method ?? 'POST', initHeaders: init?.headers });
-      const res = await fetch(input, init);
-      const contentType = res.headers?.get?.('content-type') ?? '';
-      if (!contentType.includes('application/json')) {
-        const text = await res.clone().text();
-        // eslint-disable-next-line no-console
-        console.error('[ApolloFetchDebug] Non-JSON response from GraphQL server', {
-          url: String(input),
-          status: res.status,
-          statusText: res.statusText,
-          contentType,
-          bodyPreview: text.slice(0, 1000),
-        });
-      }
-      return res;
-    };
-
     const bearerToken = tokens['Access-Token'] || tokens['ID-Token'] || undefined;
     const outgoingHeaders = {
       ...requestHeaders,
@@ -69,7 +50,6 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
       link: new HttpLink({
         uri: graphqlApiUrl,
         credentials: 'include',
-        fetch: loggingFetch,
         headers: outgoingHeaders,
       }),
     });
