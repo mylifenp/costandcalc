@@ -20,7 +20,7 @@
     "@nx/devkit": "23.1.0",
     "@nx/jest": "23.1.0",
     "@nx/js": "23.1.0",
-    "@nx/next": "^23.1.0",
+    "@nx/next": "23.1.0",
     "@nx/playwright": "23.1.0",
     "@playwright/test": "^1.37.0",
     "@swc-node/register": "1.11.1",
@@ -85,7 +85,7 @@
     "@swc/core@1.15.8": true,
     "@parcel/watcher@2.6.0": true,
     "fsevents@2.3.3": true,
-    "nx@23.1.1": true
+    "nx@23.1.0": true
   },
   "browserslist": "> 1%"
 }
