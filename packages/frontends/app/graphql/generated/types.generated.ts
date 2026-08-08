@@ -2,8 +2,7 @@
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 /** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 /** All built-in and custom scalars, mapped to their actual values */
@@ -73,32 +72,4 @@ export type HealthsQueryVariables = Exact<{ [key: string]: never; }>;
 export type HealthsQuery = { adminHealth: { apiStatus: string }, assetsHealth: { apiStatus: string }, billingHealth: { apiStatus: string }, estimationHealth: { apiStatus: string }, identityHealth: { apiStatus: string }, mediaHealth: { apiStatus: string }, notificationHealth: { apiStatus: string }, workHealth: { apiStatus: string } };
 
 
-export const HealthsDocument = gql`
-    query healths {
-  adminHealth {
-    apiStatus
-  }
-  assetsHealth {
-    apiStatus
-  }
-  billingHealth {
-    apiStatus
-  }
-  estimationHealth {
-    apiStatus
-  }
-  identityHealth {
-    apiStatus
-  }
-  mediaHealth {
-    apiStatus
-  }
-  notificationHealth {
-    apiStatus
-  }
-  workHealth {
-    apiStatus
-  }
-}
-    `;
-export type HealthsQueryResult = Apollo.QueryResult<HealthsQuery, HealthsQueryVariables>;
+export const HealthsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"healths"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"adminHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"assetsHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"billingHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"estimationHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"identityHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mediaHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"notificationHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"workHealth"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"apiStatus"}}]}}]}}]} as unknown as DocumentNode<HealthsQuery, HealthsQueryVariables>;

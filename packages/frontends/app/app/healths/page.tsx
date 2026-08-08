@@ -6,7 +6,7 @@ export default async function Page() {
   return (
     <div>
       <h1>Healths</h1>
-      {Object.entries(data).map(([key, value]) => (
+      {data && Object.entries(data).map(([key, value]) => (
         <div className="flex items-center justify-center gap-2" key={key}>
           <h3>{key}</h3>
           <p>{value.apiStatus}</p>

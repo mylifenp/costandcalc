@@ -21,7 +21,7 @@ const EcommerceDashboardPage = async () => {
     <>
       <PageTitle title="Business Overview" items={[{ label: 'Dashboards' }, { label: 'Ecommerce', active: true }]} />
       <div className="mt-6">
-        {Object.entries(data).map(([key, value]) => (
+        {data && Object.entries(data).map(([key, value]) => (
           <div className="flex items-center justify-center gap-2" key={key}>
             <h3>{key}</h3>
             <p>{value.apiStatus}</p>
