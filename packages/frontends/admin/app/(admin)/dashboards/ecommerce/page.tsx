@@ -34,7 +34,7 @@ const EcommerceDashboardPage = async () => {
           <div className="flex items-center justify-center gap-2" key={key}>
             <h3>{key}</h3>
             <p>{value.apiStatus}</p>
-            {value.email && <p>{value.email}</p>}
+            {('email' in value && value.email) && <p>{value.email}</p>}
           </div>
         ))}
         <StatList />
