@@ -8,6 +8,7 @@ import { ResourceUtilizationCard } from "./components/ResourceUtilizationCard";
 import { StatusCard } from "./components/StatusCard";
 import { TitleWidget } from "./components/TitleWidget";
 import { UsageStats } from "./components/UsageStats";
+import { User } from "@/components/users/user";
 
 export const metadata: Metadata = {
     title: "Dashboard - Gen AI",
@@ -16,7 +17,8 @@ export const metadata: Metadata = {
 const GenAIDashboardPage = () => {
     return (
         <>
-            <TitleWidget />
+        <TitleWidget />
+        <User />
             <div className="mt-6">
                 <UsageStats />
             </div>

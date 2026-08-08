@@ -2,6 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { registerApolloClient } from '@apollo/client-integration-nextjs';
 import { hasActiveSession } from '@/auth-lib/auth-session';
 import { auth } from '@/auth-lib/auth';
+import { headers } from 'next/headers';
 
 interface AuthHeadersTokens {
   'Access-Token': string;
@@ -24,12 +25,30 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
         }
       : {};
 
+    // forward incoming request headers (cookies) when running on server
+    let requestHeaders: Record<string, string> = {};
+    try {
+      const hdrs = await headers();
+      requestHeaders = Object.fromEntries((hdrs as any).entries?.() ?? []);
+    } catch (e) {
+      requestHeaders = {};
+    }
+
+    const bearerToken = tokens['Access-Token'] || tokens['ID-Token'] || undefined;
+    const outgoingHeaders = {
+      ...requestHeaders,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...(bearerToken ? { Authorization: `Bearer ${bearerToken}` } : {}),
+      ...tokens,
+    };
+
     return new ApolloClient({
       cache: new InMemoryCache(),
       link: new HttpLink({
         uri: graphqlApiUrl,
         credentials: 'include',
-        headers: tokens,
+        headers: outgoingHeaders,
       }),
     });
   },
