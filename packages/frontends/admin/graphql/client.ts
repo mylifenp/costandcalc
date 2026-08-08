@@ -28,7 +28,8 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
     // forward incoming request headers (cookies) when running on server
     let requestHeaders: Record<string, string> = {};
     try {
-      requestHeaders = Object.fromEntries(headers().entries());
+      const hdrs = await headers();
+      requestHeaders = Object.fromEntries((hdrs as any).entries?.() ?? []);
     } catch (e) {
       requestHeaders = {};
     }

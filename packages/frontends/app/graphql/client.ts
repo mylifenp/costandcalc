@@ -28,7 +28,10 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(
     // forward incoming request headers (cookies) when running on server
     let requestHeaders: Record<string, string> = {};
     try {
-      requestHeaders = Object.fromEntries(headers().entries());
+      // headers() may return a Promise or a plain object depending on Next.js version; await is safe for both
+      const hdrs = await headers();
+      // entries() may not be typed strictly on ReadonlyHeaders; cast to any for runtime conversion
+      requestHeaders = Object.fromEntries((hdrs as any).entries?.() ?? []);
     } catch (e) {
       requestHeaders = {};
     }
