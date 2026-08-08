@@ -4,6 +4,7 @@ export const HEALTHS = gql`
   query healths {
     adminHealth {
       apiStatus
+      email
     }
     assetsHealth {
       apiStatus
