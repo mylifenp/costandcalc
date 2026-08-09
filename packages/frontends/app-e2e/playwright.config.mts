@@ -43,6 +43,18 @@ export default defineConfig({
     // cold boot of `next dev` on a CI agent can exceed the 60s default
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
+    // The workspace root .env is not committed, so the CI-spawned dev server
+    // must get these explicitly, otherwise Auth.js throws
+    // UntrustedHost / MissingSecret for /auth/* requests.
+    env: {
+      AUTH_TRUST_HOST: 'true',
+      // throwaway value, only used by the ephemeral e2e dev server
+      AUTH_SECRET: 'e2e-playwright-dummy-secret',
+      KEYCLOAK_ISSUER: "https://auth.datenium.de/realms/test_realm",
+      KEYCLOAK_CLIENT_ID: "test_realm_id",
+      KEYCLOAK_CLIENT_SECRET: "gYCK8ERXmi0PnLrZgdwXVHPMD7AdnZvdSLhYg2OGbG8ZQsoVgTZ4GOjRLlkRZvMHS9iKpz4AR8Us0eNv6KwOQ7",
+      KEYCLOAK_SCOPE: "openid profile email"
+    },
     cwd: workspaceRoot,
   },
   projects: [
