@@ -29,11 +29,20 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
-  /* Run your local dev server before starting the tests */
+  /* Run your local dev server before starting the tests.
+   * Locally: reuse the dev server that Nx starts as a continuous task
+   * (the @nx/playwright plugin infers `dependsOn: admin:dev` from this block).
+   * In CI: `reuseExistingServer` is false, so the plugin skips the dependsOn
+   * inference and Playwright owns the full server lifecycle. This avoids a
+   * race where Nx schedules e2e before the cold dev server is listening and
+   * Playwright spawns a second `next dev`, leaving two servers to untangle
+   * (slow teardown) after the tests finish. */
   webServer: {
     command: 'npx nx run @costandcalc/admin:dev',
     url: 'http://localhost:3000',
-    reuseExistingServer: true,
+    // cold boot of `next dev` on a CI agent can exceed the 60s default
+    timeout: 120 * 1000,
+    reuseExistingServer: !process.env.CI,
     cwd: workspaceRoot,
   },
   projects: [
