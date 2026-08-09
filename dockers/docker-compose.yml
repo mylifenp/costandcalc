@@ -1,6 +1,12 @@
 services:
   web_costandcalc:
     image: mylifenp/web_costandcalc:latest
+    build:
+      context: ..
+      dockerfile: dockers/app_costandcalc.Dockerfile
+      args:
+        # Baked into the browser bundle at image build time
+        NEXT_PUBLIC_GRAPHQL_API_URL: ${NEXT_PUBLIC_GRAPHQL_API_URL:-http://localhost:8099/graphql}
     container_name: web_costandcalc
     ports:
       - '9081:3000'
@@ -15,6 +21,12 @@ services:
       PORT: 3000
   admin_costandcalc:
     image: mylifenp/admin_costandcalc:latest
+    build:
+      context: ..
+      dockerfile: dockers/admin_costandcalc.Dockerfile
+      args:
+        # Baked into the browser bundle at image build time
+        NEXT_PUBLIC_GRAPHQL_API_URL: ${NEXT_PUBLIC_GRAPHQL_API_URL:-http://localhost:8099/graphql}
     container_name: admin_costandcalc
     ports:
       - '9082:3000'
