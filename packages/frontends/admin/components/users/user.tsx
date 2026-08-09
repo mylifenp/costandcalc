@@ -1,9 +1,7 @@
 "use client";
 
 import { HelloQuery, HelloQueryVariables } from "@/graphql/generated/types.generated";
-// import { GetUserQuery, GetUserQueryVariables } from "@/graphql/generated/types.generated";
 import { HELLO } from "@/graphql/queries/hello";
-// import { GET_USER } from "@/graphql/queries/user";
 import { useQuery } from "@apollo/client/react";
 import { FC } from "react";
 
@@ -14,7 +12,10 @@ export const User: FC<Props> = () => {
     fetchPolicy: 'cache-first',
   });
 
-  console.log("DATA", data, { loading, error });
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+
   return (
     <div>
       {data ? <div>{data.hello}</div>: <div>NO DATA</div>}

@@ -43,6 +43,12 @@ export default defineConfig({
     // cold boot of `next dev` on a CI agent can exceed the 60s default
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
+    // The workspace root .env (with AUTH_TRUST_HOST=true) is not committed,
+    // so the CI-spawned dev server must trust the localhost host explicitly,
+    // otherwise Auth.js throws UntrustedHost for /auth/* requests.
+    env: {
+      AUTH_TRUST_HOST: 'true',
+    },
     cwd: workspaceRoot,
   },
   projects: [
