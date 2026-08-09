@@ -7,7 +7,7 @@ import { useMemo, ReactNode } from 'react';
 import { useSession } from 'next-auth/react';
 
 const httpLink = new HttpLink({
-  uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URL || 'http://api.costandcalc.com/graphql',
+  uri: process.env.NEXT_PUBLIC_GRAPHQL_API_URL || 'https://api.costandcalc.com/graphql',
   credentials: 'include',
 });
 
