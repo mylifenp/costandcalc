@@ -2,7 +2,9 @@
 import { type Metadata } from "next";
 import { type ReactNode } from "react";
 import { Provider } from './provider';
+// import "../styles/app.css";
 import "@/styles/app.css";
+
 import { auth } from "@/auth-lib/auth";
 
 export const metadata: Metadata = {

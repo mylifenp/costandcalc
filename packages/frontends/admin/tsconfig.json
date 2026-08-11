@@ -15,18 +15,19 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/styles/*": ["./styles/*"]
     },
     "types": ["jest", "node"],
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
   },
   "include": [
-     "app/**/*.ts",
+    "app/**/*.ts",
     "app/**/*.tsx",
     "app/**/*.js",
     "app/**/*.jsx",
@@ -40,7 +41,7 @@
     "graphql",
     "hooks",
     "styles",
-    "utils"
+    "utils",
   ],
   "exclude": [
     "out-tsc",
@@ -52,6 +53,6 @@
     "app/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
-    ".next"
-  ]
+    ".next",
+  ],
 }
