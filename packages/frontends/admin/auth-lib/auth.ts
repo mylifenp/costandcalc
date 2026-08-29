@@ -29,6 +29,7 @@ const configEnvs = {
 
 async function refreshTokens(token: JWT): Promise<JWT> {
   if (!token.refreshToken) {
+    console.error('No refresh token available on JWT; cannot refresh');
     return {
       ...token,
       accessToken: undefined,
@@ -40,52 +41,119 @@ async function refreshTokens(token: JWT): Promise<JWT> {
     };
   }
 
-  try {
-    const url = `${configEnvs.KEYCLOAK_ISSUER}/protocol/openid-connect/token`;
+  if (!configEnvs.KEYCLOAK_ISSUER) {
+    console.error('KEYCLOAK_ISSUER is not configured; cannot refresh tokens');
+    return {
+      ...token,
+      accessToken: undefined,
+      idToken: undefined,
+      refreshToken: undefined,
+      expires_at: undefined,
+      expires: undefined,
+      error: REFRESH_TOKEN_ERROR,
+    };
+  }
+
+  const url = `${configEnvs.KEYCLOAK_ISSUER.replace(/\/$/, '')}/protocol/openid-connect/token`;
+  const useClientCreds = Boolean(configEnvs.KEYCLOAK_CLIENT_ID && configEnvs.KEYCLOAK_CLIENT_SECRET);
+
+  const doRequest = async (useAuthHeader: boolean) => {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json',
+    };
+
+    if (useAuthHeader && useClientCreds) {
+      try {
+        headers['Authorization'] = `Basic ${Buffer.from(`${configEnvs.KEYCLOAK_CLIENT_ID}:${configEnvs.KEYCLOAK_CLIENT_SECRET}`).toString('base64')}`;
+      } catch (e) {
+        // ignore if Buffer unavailable
+      }
+    }
+
+    const body = new URLSearchParams();
+    body.append('grant_type', 'refresh_token');
+    body.append('refresh_token', (token.refreshToken as string) || '');
+    if (configEnvs.KEYCLOAK_CLIENT_ID) body.append('client_id', configEnvs.KEYCLOAK_CLIENT_ID);
+    // include client_secret only when not using Authorization header
+    if (!useAuthHeader && configEnvs.KEYCLOAK_CLIENT_SECRET) body.append('client_secret', configEnvs.KEYCLOAK_CLIENT_SECRET);
+
+    // Do not pass extra scopes during refresh to avoid server rejecting unknown scopes
+
+    // Log non-sensitive debug info
+    try {
+      console.debug('Refreshing token', {
+        url,
+        useAuthHeader,
+        refreshTokenLength: token.refreshToken ? (token.refreshToken as string).length : 0,
+        clientIdPresent: Boolean(configEnvs.KEYCLOAK_CLIENT_ID),
+        clientSecretPresent: Boolean(configEnvs.KEYCLOAK_CLIENT_SECRET),
+      });
+    } catch (e) {
+      // ignore logging errors
+    }
 
     const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: new URLSearchParams({
-        grant_type: "refresh_token",
-        refresh_token: (token.refreshToken as string) || "",
-        client_id: configEnvs.KEYCLOAK_CLIENT_ID!,
-        client_secret: configEnvs.KEYCLOAK_CLIENT_SECRET!,
-        scope: configEnvs.KEYCLOAK_SCOPE || "openid email roles organization",
-      }),
+      method: 'POST',
+      headers,
+      body,
     });
-    const refreshedTokens = await response.json();
-    if (!response.ok) {
-      throw refreshedTokens;
+
+    const text = await response.text();
+    let jsonBody: any;
+    try {
+      jsonBody = text ? JSON.parse(text) : {};
+    } catch (e) {
+      jsonBody = { raw: text };
     }
-    return {
-      ...token,
-      accessToken: refreshedTokens.access_token,
-      idToken: refreshedTokens.id_token,
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
-      expires: new Date(
-        Date.now() +
-          (!refreshedTokens.expires_in ? 0 : refreshedTokens.expires_in * 1000),
-      ),
-      expires_at:
-        Date.now() +
-        (!refreshedTokens.expires_in ? 0 : refreshedTokens.expires_in * 1000),
-      error: undefined,
-    };
-  } catch (error) {
-    console.error("Error refreshing access token", error);
-    return {
-      ...token,
-      accessToken: undefined,
-      idToken: undefined,
-      refreshToken: undefined,
-      expires_at: undefined,
-      expires: undefined,
-      error: REFRESH_TOKEN_ERROR,
-    };
+
+    return { response, jsonBody };
+  };
+
+  // Try with Authorization header first if we have client credentials, then fallback to client_secret_post
+  const attempts = useClientCreds ? [true, false] : [false];
+  let lastResult: { response?: Response; jsonBody?: any } | null = null;
+
+  for (const useAuthHeader of attempts) {
+    try {
+      const { response, jsonBody } = await doRequest(useAuthHeader);
+      lastResult = { response, jsonBody };
+
+      if (response.ok && jsonBody && jsonBody.access_token) {
+        return {
+          ...token,
+          accessToken: jsonBody.access_token,
+          idToken: jsonBody.id_token,
+          refreshToken: jsonBody.refresh_token ?? token.refreshToken,
+          expires: new Date(Date.now() + (!jsonBody.expires_in ? 0 : jsonBody.expires_in * 1000)),
+          expires_at: Date.now() + (!jsonBody.expires_in ? 0 : jsonBody.expires_in * 1000),
+          error: undefined,
+        };
+      }
+
+      console.error('Refresh attempt failed', {
+        useAuthHeader,
+        status: response.status,
+        statusText: response.statusText,
+        body: jsonBody,
+      });
+    } catch (err) {
+      console.error('Refresh attempt threw', { useAuthHeader, err });
+      lastResult = { response: undefined, jsonBody: err };
+    }
   }
+
+  // If we reach here all attempts failed
+  console.error('All refresh attempts failed', lastResult);
+  return {
+    ...token,
+    accessToken: undefined,
+    idToken: undefined,
+    refreshToken: undefined,
+    expires_at: undefined,
+    expires: undefined,
+    error: REFRESH_TOKEN_ERROR,
+  };
 }
 
 const nextAuth = NextAuth({
@@ -146,7 +214,9 @@ const nextAuth = NextAuth({
         return token;
       }
 
-      if (!token.expires_at || (typeof token.expires_at === 'number' && Date.now() < token.expires_at)) {
+      // Normalize expires_at and avoid unnecessary refresh attempts.
+      const expiresAt = typeof token.expires_at === 'number' ? token.expires_at : Number(token.expires_at);
+      if (!expiresAt || Date.now() < expiresAt) {
         return token;
       }
 

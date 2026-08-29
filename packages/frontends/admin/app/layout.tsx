@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   const headerLocale = (await headers()).get("x-locale");
   const lang = headerLocale && isLocale(headerLocale) ? headerLocale : defaultLocale;
     return (
-        <html lang={lang} suppressHydrationWarning className="group/html">
+        <html lang={lang} suppressHydrationWarning data-scroll-behavior="smooth" className="group/html">
             <head>
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />

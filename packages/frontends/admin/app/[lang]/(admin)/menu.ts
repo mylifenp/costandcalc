@@ -29,7 +29,7 @@ export const adminMenuItems: ISidebarMenuItem[] = [
       {
         id: 'organization_id',
         label: 'Organization',
-        url: '/dashboards/organization',
+        url: '/dashboards/organizations',
       },
     ],
   },

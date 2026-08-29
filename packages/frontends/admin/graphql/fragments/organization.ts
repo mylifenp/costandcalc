@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { DOMAIN_FRAGMENT } from "./domain";
+import { GROUP_FRAGMENT } from "./group";
 
 export const ORGANIZATION_FRAGMENT = gql`
   fragment OrganizationFragment on Organization {
@@ -11,6 +12,10 @@ export const ORGANIZATION_FRAGMENT = gql`
     domains {
       ...DomainFragment
     }
+    groups {
+      ...GroupFragment
+    }
   }
   ${DOMAIN_FRAGMENT}
+  ${GROUP_FRAGMENT}
 `;
