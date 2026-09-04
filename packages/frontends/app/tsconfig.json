@@ -30,6 +30,8 @@
     "app/**/*.tsx",
     "app/**/*.js",
     "app/**/*.jsx",
+    "app/**/*.json",
+    "i18n.ts",
     "../../../packages/frontends/admin_costandcalc/.next/types/**/*.ts",
     "../../../dist/packages/frontends/admin_costandcalc/.next/types/**/*.ts",
     "index.d.ts",

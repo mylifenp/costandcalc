@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 
 import { auth } from '@/auth-lib/auth';
 import { hasActiveSession } from '@/auth-lib/auth-session';
@@ -15,8 +15,16 @@ export const metadata: Metadata = {
 export default async function Page() {
   const session = await auth();
 
-  const lastPathCookie = cookies().get('nexus_last_path')?.value;
-  const lastPath = lastPathCookie ? decodeURIComponent(lastPathCookie) : undefined;
+  // parse cookie header to get last path (some runtimes don't support cookies().get)
+  const hdrs = await headers();
+  const cookieHeader = hdrs.get('cookie') ?? '';
+  const parseCookie = (name: string) => {
+    if (!cookieHeader) return undefined;
+    const match = cookieHeader.split(';').map((s: string) => s.trim()).find((c: string) => c.startsWith(name + '='));
+    if (!match) return undefined;
+    return decodeURIComponent(match.split('=').slice(1).join('='));
+  };
+  const lastPath = parseCookie('nexus_last_path');
 
   if (hasActiveSession(session)) {
     if (lastPath && lastPath !== '/' && !lastPath.startsWith('/auth') && lastPath.startsWith('/')) {
