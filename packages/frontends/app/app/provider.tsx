@@ -5,6 +5,7 @@ import { ApolloWrapper } from '@/graphql/client-side';
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import { ReactNode } from 'react';
+import { LastPathTracker } from '@/components/LastPathTracker';
 
 export function Provider({
   children,
@@ -16,6 +17,7 @@ export function Provider({
   return (
     <SessionProvider session={session} basePath="/auth">
       <AuthSessionWatcher />
+      <LastPathTracker />
       <ApolloWrapper>
         <ConfigProvider>{children}</ConfigProvider>
       </ApolloWrapper>

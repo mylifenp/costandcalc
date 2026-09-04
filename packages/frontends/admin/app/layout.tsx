@@ -1,11 +1,13 @@
 
 import { type Metadata } from "next";
+import { headers } from "next/headers";
 import { type ReactNode } from "react";
 import { Provider } from './provider';
 // import "../styles/app.css";
 import "@/styles/app.css";
 
 import { auth } from "@/auth-lib/auth";
+import { defaultLocale, isLocale } from "@/i18n";
 
 export const metadata: Metadata = {
     title: {
@@ -29,8 +31,12 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const session = await auth();
+  // Set by proxy.ts for locale-prefixed routes; falls back to the default
+  // locale for non-localized routes (/auth/*, /api/*, ...).
+  const headerLocale = (await headers()).get("x-locale");
+  const lang = headerLocale && isLocale(headerLocale) ? headerLocale : defaultLocale;
     return (
-        <html lang="en" suppressHydrationWarning className="group/html">
+        <html lang={lang} suppressHydrationWarning data-scroll-behavior="smooth" className="group/html">
             <head>
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />

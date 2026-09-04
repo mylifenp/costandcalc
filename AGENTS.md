@@ -21,3 +21,10 @@
 - The `nx-generate` skill handles generator discovery internally - don't call nx_docs just to look up generator syntax
 
 <!-- nx configuration end-->
+
+<!-- nextjs and libraries used for the frontend start-->
+- using nextjs (version 16.1.7) | [Next.js documentation](https://nextjs.org/docs)
+- using daisyui (version 5.7.14) | [DaisyUI documentation](https://daisyui.com/docs/)
+- using next-auth (version 5.0.0-beta.32) | [NextAuth.js documentation](https://authjs.dev/)
+- using tanstack/react-table (version 8.21.3) | [React Table documentation](https://tanstack.com/table/v8)
+<!-- nextjs and libraries used for the frontend end-->

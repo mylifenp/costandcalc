@@ -1,4 +1,3 @@
-
 import { type Metadata } from "next";
 import { type ReactNode } from "react";
 import { Provider } from './provider';
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const session = await auth();
     return (
-        <html lang="en" suppressHydrationWarning className="group/html">
+        <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className="group/html">
             <head>
                 <link rel="preconnect" href="https://fonts.gstatic.com" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />

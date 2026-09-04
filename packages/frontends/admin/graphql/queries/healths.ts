@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const HEALTHS = gql`
+export const GET_HEALTHS = gql`
   query healths {
     adminHealth {
       apiStatus

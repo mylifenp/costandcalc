@@ -1,18 +1,25 @@
 'use client';
 
 import { signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React from 'react';
 
-
 export const TopbarProfileMenu = () => {
-
+  const { data: session, status } = useSession();
   const handleLogout = async () => {
     await signOut({
       redirectTo: '/auth/logout',
     });
   };
 
+  if (status === 'loading') {
+    return null;
+  }
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <div>
@@ -26,8 +33,7 @@ export const TopbarProfileMenu = () => {
               </div>
             </div>
             <div className="text-start max-sm:hidden">
-              <p className="text-sm/none">Denish</p>
-              <p className="text-base-content/50 mt-0.5 text-xs/none">Team</p>
+              <p className="text-sm/none">{session.user?.name}</p>
             </div>
           </label>
         </div>
@@ -37,7 +43,7 @@ export const TopbarProfileMenu = () => {
             <div className="bg-base-100 rounded-box relative flex h-full flex-col pt-4 sm:pt-8">
               <label
                 htmlFor="topbar-profile-drawer"
-                className="btn btn-xs btn-circle btn-ghost absolute start-2 top-2"
+                className="btn btn-xs btn-circle btn-ghost absolute inset-s-2 top-2"
                 aria-label="Close">
                 <span className="iconify lucide--x size-4" />
               </label>
@@ -47,13 +53,13 @@ export const TopbarProfileMenu = () => {
                   <div className="avatar bg-base-200 isolate size-20 cursor-pointer overflow-hidden rounded-full px-1 pt-1 md:size-24">
                     <img src="/images/avatars/1.png" alt="User Avatar" />
                   </div>
-                  <div className="bg-base-100 absolute end-0 bottom-0 flex items-center justify-center rounded-full p-1.5 shadow-sm">
+                  <div className="bg-base-100 absolute inset-e-0 bottom-0 flex items-center justify-center rounded-full p-1.5 shadow-sm">
                     <span className="iconify lucide--pencil size-4" />
                   </div>
                 </div>
 
-                <p className="mt-4 text-lg/none font-medium sm:mt-8">John Doe</p>
-                <p className="text-base-content/60 mt-1 text-sm">john@company.com</p>
+                <p className="mt-4 text-lg/none font-medium sm:mt-8">{session.user?.name}</p>
+                <p className="text-base-content/60 mt-1 text-sm">{session.user?.email}</p>
 
                 <div className="mt-4 flex items-center gap-2 *:cursor-pointer sm:mt-6">
                   <div className="avatar bg-base-200 size-10 overflow-hidden rounded-full px-1 pt-1">
