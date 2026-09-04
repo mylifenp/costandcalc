@@ -3,7 +3,7 @@ import { nxE2EPreset } from '@nx/playwright/preset';
 import { defineConfig, devices } from '@playwright/test';
 
 // For CI, you may want to set BASE_URL to the deployed application.
-const baseURL = process.env['BASE_URL'] || 'http://localhost:3000';
+const baseURL = process.env['BASE_URL'] || 'http://localhost:3001';
 
 /**
  * Read environment variables from file.
@@ -39,7 +39,8 @@ export default defineConfig({
    * (slow teardown) after the tests finish. */
   webServer: {
     command: 'npx nx run @costandcalc/admin:dev',
-    url: 'http://localhost:3000',
+    // admin dev server is pinned to port 3001 (see admin/package.json)
+    url: 'http://localhost:3001',
     // cold boot of `next dev` on a CI agent can exceed the 60s default
     timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,

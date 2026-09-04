@@ -15,21 +15,24 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/styles/*": ["./styles/*"]
     },
     "types": ["jest", "node"],
     "outDir": "dist",
-    "rootDir": "."
+    "rootDir": ".",
   },
   "include": [
-     "app/**/*.ts",
+    "app/**/*.ts",
     "app/**/*.tsx",
     "app/**/*.js",
     "app/**/*.jsx",
+    "app/**/*.json",
+    "i18n.ts",
     "../../../packages/frontends/admin_costandcalc/.next/types/**/*.ts",
     "../../../dist/packages/frontends/admin_costandcalc/.next/types/**/*.ts",
     "index.d.ts",
@@ -40,7 +43,7 @@
     "graphql",
     "hooks",
     "styles",
-    "utils"
+    "utils",
   ],
   "exclude": [
     "out-tsc",
@@ -52,6 +55,6 @@
     "app/**/*.test.ts",
     "src/**/*.spec.ts",
     "src/**/*.test.ts",
-    ".next"
-  ]
+    ".next",
+  ],
 }

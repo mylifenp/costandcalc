@@ -1,0 +1,23 @@
+{
+  "common": {
+    "appName": "Nexus"
+  },
+  "landing": {
+    "metaTitle": "Willkommen",
+    "welcomeTitle": "Willkommen bei Nexus",
+    "welcomeSubtitle": "Ihr Admin-Dashboard zur Verwaltung von Produkten, Bestellungen und Kunden. Melden Sie sich an, um loszulegen.",
+    "login": "Anmelden",
+    "openDashboard": "Zum Dashboard"
+  },
+  "products": {
+    "title": "Produkte",
+    "breadcrumbSection": "E-Commerce",
+    "addProduct": "Produkt hinzufügen",
+    "table": {
+      "name": "Name",
+      "price": "Preis",
+      "stock": "Lagerbestand",
+      "status": "Status"
+    }
+  }
+}

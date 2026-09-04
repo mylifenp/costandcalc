@@ -4,7 +4,7 @@ export const sidebars = [
     {
         title: "Ecommerce",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/EcommerceSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/EcommerceSidebarDemo").then((module) => ({
                 default: module.EcommerceSidebarDemo,
             })),
         ),
@@ -12,7 +12,7 @@ export const sidebars = [
     {
         title: "Payment",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/PaymentSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/PaymentSidebarDemo").then((module) => ({
                 default: module.PaymentSidebarDemo,
             })),
         ),
@@ -20,7 +20,7 @@ export const sidebars = [
     {
         title: "Project",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/ProjectSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/ProjectSidebarDemo").then((module) => ({
                 default: module.ProjectSidebarDemo,
             })),
         ),
@@ -28,7 +28,7 @@ export const sidebars = [
     {
         title: "Chat",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/ChatSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/ChatSidebarDemo").then((module) => ({
                 default: module.ChatSidebarDemo,
             })),
         ),
@@ -36,7 +36,7 @@ export const sidebars = [
     {
         title: "Documentation",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/DocumentationSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/DocumentationSidebarDemo").then((module) => ({
                 default: module.DocumentationSidebarDemo,
             })),
         ),
@@ -45,7 +45,7 @@ export const sidebars = [
     {
         title: "Huge Icons",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/HugeIconsSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/HugeIconsSidebarDemo").then((module) => ({
                 default: module.HugeIconsSidebarDemo,
             })),
         ),
@@ -53,7 +53,7 @@ export const sidebars = [
     {
         title: "Remix Icons",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/RemixIconsSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/RemixIconsSidebarDemo").then((module) => ({
                 default: module.RemixIconsSidebarDemo,
             })),
         ),
@@ -61,7 +61,7 @@ export const sidebars = [
     {
         title: "Custom Background",
         comp: lazy(() =>
-            import("@/app/components/layouts/sidebar/CustomBackgroundSidebarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/sidebar/CustomBackgroundSidebarDemo").then((module) => ({
                 default: module.CustomBackgroundSidebarDemo,
             })),
         ),
@@ -72,7 +72,7 @@ export const topbars = [
     {
         title: "Classic",
         comp: lazy(() =>
-            import("@/app/components/layouts/topbar/ClassicTopbarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/topbar/ClassicTopbarDemo").then((module) => ({
                 default: module.ClassicTopbarDemo,
             })),
         ),
@@ -80,7 +80,7 @@ export const topbars = [
     {
         title: "Greeting",
         comp: lazy(() =>
-            import("@/app/components/layouts/topbar/GreetingTopbarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/topbar/GreetingTopbarDemo").then((module) => ({
                 default: module.GreetingTopbarDemo,
             })),
         ),
@@ -88,7 +88,7 @@ export const topbars = [
     {
         title: "Editor",
         comp: lazy(() =>
-            import("@/app/components/layouts/topbar/EditorTopbarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/topbar/EditorTopbarDemo").then((module) => ({
                 default: module.EditorTopbarDemo,
             })),
         ),
@@ -96,7 +96,7 @@ export const topbars = [
     {
         title: "Nav Menu 1",
         comp: lazy(() =>
-            import("@/app/components/layouts/topbar/NavMenu1TopbarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/topbar/NavMenu1TopbarDemo").then((module) => ({
                 default: module.NavMenu1TopbarDemo,
             })),
         ),
@@ -105,7 +105,7 @@ export const topbars = [
     {
         title: "Nav Menu 2",
         comp: lazy(() =>
-            import("@/app/components/layouts/topbar/NavMenu2TopbarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/topbar/NavMenu2TopbarDemo").then((module) => ({
                 default: module.NavMenu2TopbarDemo,
             })),
         ),
@@ -114,7 +114,7 @@ export const topbars = [
     {
         title: "Custom Background",
         comp: lazy(() =>
-            import("@/app/components/layouts/topbar/CustomBackgroundTopbarDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/topbar/CustomBackgroundTopbarDemo").then((module) => ({
                 default: module.CustomBackgroundTopbarDemo,
             })),
         ),
@@ -125,7 +125,7 @@ export const footers = [
     {
         title: "Minimal",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/MinimalFooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/MinimalFooterDemo").then((module) => ({
                 default: module.MinimalFooterDemo,
             })),
         ),
@@ -133,7 +133,7 @@ export const footers = [
     {
         title: "Social",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/SocialFooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/SocialFooterDemo").then((module) => ({
                 default: module.SocialFooterDemo,
             })),
         ),
@@ -141,7 +141,7 @@ export const footers = [
     {
         title: "Branding",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/BrandingFooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/BrandingFooterDemo").then((module) => ({
                 default: module.BrandingFooterDemo,
             })),
         ),
@@ -149,7 +149,7 @@ export const footers = [
     {
         title: "Legal",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/LegalFooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/LegalFooterDemo").then((module) => ({
                 default: module.LegalFooterDemo,
             })),
         ),
@@ -157,7 +157,7 @@ export const footers = [
     {
         title: "Status",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/StatusFooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/StatusFooterDemo").then((module) => ({
                 default: module.StatusFooterDemo,
             })),
         ),
@@ -166,7 +166,7 @@ export const footers = [
     {
         title: "Support",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/SupportFooterDemo  ").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/SupportFooterDemo  ").then((module) => ({
                 default: module.SupportFooterDemo,
             })),
         ),
@@ -175,7 +175,7 @@ export const footers = [
     {
         title: "Options 1",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/Options1FooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/Options1FooterDemo").then((module) => ({
                 default: module.Options1FooterDemo,
             })),
         ),
@@ -183,7 +183,7 @@ export const footers = [
     {
         title: "Options 2",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/Options2FooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/Options2FooterDemo").then((module) => ({
                 default: module.Options2FooterDemo,
             })),
         ),
@@ -191,7 +191,7 @@ export const footers = [
     {
         title: "Custom Background",
         comp: lazy(() =>
-            import("@/app/components/layouts/footer/CustomBackgroundFooterDemo").then((module) => ({
+            import("@/app/[lang]/components/layouts/footer/CustomBackgroundFooterDemo").then((module) => ({
                 default: module.CustomBackgroundFooterDemo,
             })),
         ),
